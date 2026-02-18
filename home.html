@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Home</title>
+  <link rel="stylesheet" href="FITNESS CSS .css">
+  <style>
+    .container{max-width:720px;margin:20px;padding:20px}
+    .card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 24px rgba(3,7,18,.12)}
+    .card h1{margin:0 0 6px;color:#000;font-weight:800}
+    .tabs{margin-top:12px;display:flex;gap:12px}
+    .tab{display:inline-block;padding:10px 14px;border-radius:10px;background:rgba(0,0,0,0.04);text-decoration:none;color:var(--text)}
+    .goCalendar{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 14px;text-decoration:none}
+    .analyticsTab{background:linear-gradient(180deg,#eef7ff 0%,#e5f2ff 100%);color:#0b1220;border:1px solid rgba(14,69,134,.08)}
+    .analytics-panel{margin-top:14px;background:linear-gradient(180deg,#fbfdff 0%,#f3f9ff 100%);padding:14px;border-radius:12px;box-shadow:0 8px 18px rgba(3,7,18,.06);border:1px solid rgba(14,69,134,.06);max-width:560px}
+    .analytics-panel h3{margin:0 0 10px;color:#0b1220;font-weight:700}
+    .progress{background:rgba(3,7,18,.06);height:12px;border-radius:8px;overflow:hidden}
+    .progress .fill{height:100%;width:42%;background:linear-gradient(90deg,var(--accent-600),var(--accent));border-radius:8px}
+    .metrics{display:flex;gap:10px;margin-top:12px}
+    .metric{background:var(--card);padding:10px;border-radius:10px;flex:1;text-align:center;box-shadow:0 6px 14px rgba(3,7,18,.04)}
+    .metric h4{margin:0;color:#0b1220}
+    .metric p{margin:6px 0 0;color:var(--muted);font-size:13px}
+    .actions{margin-top:12px}
+    @media (max-width:560px){.container{margin:28px 12px}}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="card">
+      <h1 id="welcome">Welcome</h1>
+      <p id="sub" class="muted">You're signed in.</p>
+
+      <div class="tabs">
+        <a class="goCalendar" id="goCal" href="FITNESS HTML.html">Go to Calendar</a>
+        <a class="tab analyticsTab" id="analyticsTab" href="#">Workout Analytics</a>
+        <a class="tab" id="logout" href="#">Logout</a>
+      </div>
+
+      <section id="analytics" class="analytics-panel" aria-hidden="true" style="display:none">
+        <h3>Workout Analytics</h3>
+        <p class="muted">Insights based on your most recent workout.</p>
+
+        <div id="analyticsSuggestions" style="margin-top:12px">
+          <p id="suggestionBox" class="muted">No data yet.</p>
+          <p style="margin:6px 0 0;color:var(--muted)">Last burn: <span id="lastBurn">—</span></p>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:10px">
+          <a class="goCalendar" href="FITNESS HTML.html">Open Calendar</a>
+          <a class="tab" href="create_workout.html">Edit Workout Plan</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module">
+    const username = localStorage.getItem('username') || '';
+    const welcome = document.getElementById('welcome');
+    if(username){ welcome.textContent = `Welcome, ${username}`; }
+    else { welcome.textContent = 'Welcome, Guest'; }
+
+    // logout
+    document.getElementById('logout').addEventListener('click', (e)=>{
+      e.preventDefault();
+      localStorage.removeItem('username');
+      window.location.href = 'login.html';
+    });
+
+    // analytics tab toggle
+    const analyticsTab = document.getElementById('analyticsTab');
+    const analytics = document.getElementById('analytics');
+    analyticsTab && analyticsTab.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const visible = analytics.style.display !== 'none';
+      analytics.style.display = visible ? 'none' : 'block';
+      analytics.setAttribute('aria-hidden', visible ? 'true' : 'false');
+      // when opening, load suggestions from Realtime DB
+      if(!visible) {
+        analytics.scrollIntoView({behavior:'smooth',block:'center'});
+        try {
+          const mod = await import('./analytics.js');
+          if(mod && typeof mod.generateSuggestions === 'function') await mod.generateSuggestions();
+        } catch(err) {
+          console.error('Analytics load failed', err);
+          const sb = document.getElementById('suggestionBox');
+          if(sb) sb.innerText = 'Unable to load analytics.';
+        }
+      }
+    });
+
+    // (removed quick-start handler) 
+  </script>
+</body>
+</html>

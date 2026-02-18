@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fitness Calendar</title>
+  <link rel="stylesheet" href="FITNESS CSS .css">
+</head>
+<body>
+
+  <div class="top-actions">
+    <a href="home.html" class="home-btn">Home</a>
+  </div>
+
+  <h1 style="font-weight:700;margin:0 0 12px;">FITNESS TRACKER</h1>
+
+<!-- Stats -->
+<div class="stats">
+  <div><h1 id="distanceValue">0.00</h1><p>Distance (km)</p></div>
+  <div><h1 id="durationValue">0:00</h1><p>Duration</p></div>
+  <div><h1 id="caloriesValue">500</h1><p>Calories</p></div>
+  <div><h1 id="workoutsValue">1</h1><p>Workouts</p></div>
+</div>
+
+<!-- Month Switch -->
+<div class="calendar-header">
+  <button id="prev">◀</button>
+  <h2 id="monthYear"></h2>
+  <button id="next">▶</button>
+</div>
+
+<!-- Calendar -->
+<div class="calendar" id="calendar"></div>
+
+<script type="module" src="FITNESS JAVASCRIPT .js"></script>
+</body>
+</html>

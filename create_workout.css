@@ -1,0 +1,16 @@
+*{box-sizing:border-box;font-family:Segoe UI,Arial,Helvetica,sans-serif}
+body{background:#f6f7fb;color:#222;margin:0;padding:24px}
+.container{max-width:720px;margin:0 auto;background:#fff;padding:20px;border-radius:8px;box-shadow:0 6px 18px rgba(20,30,60,.08)}
+header h1{margin:0 0 6px;font-size:20px}
+.muted{color:#666;margin:0 0 12px}
+.field{display:block;margin-bottom:12px}
+.field label{}
+.field span{display:block;font-size:13px;color:#444;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:10px;border-radius:6px;border:1px solid #e3e6ee}
+.field-inline{display:inline-block;width:49%;vertical-align:top}
+.field-inline + .field-inline{margin-left:2%}
+.actions{display:flex;gap:12px;align-items:center;margin-top:14px}
+.actions button{background:#2b8aef;color:#fff;border:none;padding:10px 14px;border-radius:6px;cursor:pointer}
+.actions a{color:#2b8aef;text-decoration:none}
+.result{margin-top:16px;padding:12px;background:#f3f9f8;border-radius:6px;color:#064c40}
+@media(max-width:520px){.field-inline{display:block;width:100%;margin-left:0}}

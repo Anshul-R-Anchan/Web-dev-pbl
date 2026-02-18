@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login</title>
+  <link rel="stylesheet" href="FITNESS CSS .css">
+  <style>
+    .container{max-width:420px;margin:72px auto;padding:20px}
+    .card{background:linear-gradient(180deg,#eaf4ff 0%,#d9ecff 100%);padding:22px 20px;border-radius:12px;box-shadow:0 10px 28px rgba(3,7,18,.12);border:1px solid rgba(14,69,134,.08)}
+    .card h1{margin:0 0 8px;color:#000;font-weight:800}
+    label{display:block;margin-bottom:10px}
+    label span{display:block;font-weight:600;color:var(--text);margin-bottom:6px}
+    input[type="text"], input[type="password"]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(3,7,18,.06);font-size:14px;box-sizing:border-box}
+    label{padding-left:4px;padding-right:4px}
+    .actions{display:flex;gap:8px;align-items:center;margin-top:6px}
+    /* keep existing .add-btn for calendar UI; use local .btn for this form */
+    .actions .add-btn{flex:0 0 auto;height:30px;padding:0 10px;font-size:13px;border-radius:8px}
+    .actions .btn{height:30px;padding:0 10px;font-size:13px;border-radius:8px;background:var(--accent);color:#fff;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(43,138,239,.18);cursor:pointer}
+    a#cancel{color:var(--muted);text-decoration:none;padding:0 10px;display:inline-flex;align-items:center;height:30px;border-radius:8px}
+    @media (max-width:560px){.container{margin:28px 12px}}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="card">
+      <h1>Login</h1>
+      <form id="loginForm">
+        <label>
+          <span>Username</span>
+          <input type="text" id="username" name="username" autocomplete="username" required>
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" id="password" name="password" autocomplete="current-password" required>
+        </label>
+
+        <div class="actions">
+          <button type="submit" class="btn">Login</button>
+          <a href="#" id="cancel">Cancel</a>
+        </div>
+        <!-- removed duplicate login tab; Login button sits next to Cancel above -->
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      if(!username){ alert('Please enter a username'); return; }
+      // store username and navigate to home
+      localStorage.setItem('username', username);
+      window.location.href = 'home.html';
+    });
+  </script>
+</body>
+</html>
